@@ -1,0 +1,16 @@
+{
+  "name": "GIH",
+  "version": "1.0.0",
+  "description": "Git Image Hosting",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "yintianwen",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^6.0.9",
+    "webpack": "^1.14.0"
+  }
+}
