@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>GIH - Setting</title>
+</head>
+
+<body>
+    <button onclick="location.href='index.html'">返回</button>
+    <form id="settingForm">
+        <table>
+            <tr>
+                <td>rep_uri:</td>
+                <td><input type="text" name="rep_uri"></td>
+            </tr>
+            <tr>
+                <td>local_folder:</td>
+                <td><input type="text" name="local_folder"></td>
+            </tr>
+            <tr>
+                <td>path:</td>
+                <td><input type="text" name="path"></td>
+            </tr>
+            <tr>
+                <td>origin_name:</td>
+                <td><input type="text" name="origin_name"></td>
+            </tr>
+            <tr>
+                <td>label:</td>
+                <td><input type="text" name="label"></td>
+            </tr>
+        </table>
+        <button id="submitB">submit</button>
+    </form>
+    <script>
+        const settingMoudle = require("./js/setting");
+        settingMoudle.setSetting()
+        document.querySelector("#submitB").click
+
+    </script>
+</body>
+
+</html>

@@ -10,6 +10,21 @@ function getSetting() {
     return setting;
 }
 
+function setSetting(config) {
+    this.setting = config
+}
+
+function init() {
+
+}
+
+function reload() {
+
+}
+
 module.exports = {
-    getSetting: getSetting
+    getSetting: getSetting,
+    setSetting: setSetting,
+    init: init,
+    reload: reload
 }

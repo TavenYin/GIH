@@ -8,15 +8,18 @@
 
 <body>
     <div>
-        <input type="file" id="file" name="file"><button type="button" id="button" name="button">上传</button>
+        <input type="file" id="file" name="file" onchange="alert('6666')"><button type="button" id="button" name="button">上传</button>
         <br>
         markdown:<input type="text" id="markdown">
         <div id="holder">
             支持拖拽哦
         </div>
+        <button onclick="location.href='setting.html'">设置</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/mousetrap.min.js"></script>
+    <script src="./js/utils.js"></script>
     <script src="./js/upload.js"></script>
+    <script src="./js/git.js"></script>
 
 </body>
 
