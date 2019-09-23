@@ -15,7 +15,7 @@ function createWindow () {
   })
 
   // 加载index.html文件
-  win.loadFile('upload.html')
+  win.loadFile('index.html')
 
   // 打开开发者工具
   win.webContents.openDevTools()
@@ -53,12 +53,3 @@ app.on('activate', () => {
 
 // 在这个文件中，你可以续写应用剩下主进程代码。
 // 也可以拆分成几个文件，然后用 require 导入。
-
-ipcMain.on('asynchronous-message', (event, arg) => {
-    const reply = arg.split('').reverse().join('');
-    console.log('reply: ', reply);
-    // 发送消息到主进程
-    event.sender.send('asynchronous-reply', reply);
-});
-
-
