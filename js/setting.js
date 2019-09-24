@@ -5,7 +5,7 @@ function getSetting() {
     return JSON.parse(localStorage.getItem("setting"))
 }
 
-function config(config) {
+function setting(config) {
     settingOnChange(config);
     // 创建本地目录
     var target = config.local_folder + fileSeparator() + config.path
@@ -14,7 +14,7 @@ function config(config) {
         mkdirsSync(target);
 
     }
-    
+
     // 是否存在 .git
 
     // git clone 
@@ -29,28 +29,37 @@ function init() {
     if (fs.existsSync(configFile)) {
         var data = fs.readFileSync(configFile);
         localStorage.setItem("setting", data.toString())
-       
+
     }
 }
 
 function settingOnChange(config) {
     var configFile = process.env.HOME + fileSeparator() + 'setting.json'
-    fs.writeFileSync(configFile, JSON.stringify(config),'utf8')
-    
+    var configJSON;
+    // 更新配置文件
+    fs.writeFile(configFile, configJSON = JSON.stringify(config), 'utf8', function (error) {
+        if (error) {
+            console.log(error);
+            return false;
+        }
+        console.log('写入成功');
+    })
+    // 更新全局变量
+    localStorage.setItem("setting", configJSON);
 }
 
 //递归创建目录 同步方法  
-function mkdirsSync(dirname) {  
+function mkdirsSync(dirname) {
     //console.log(dirname);  
-    if (fs.existsSync(dirname)) {  
-        return true;  
-    } else {  
-        if (mkdirsSync(path.dirname(dirname))) {  
-            fs.mkdirSync(dirname);  
-            return true;  
-        }  
-    }  
-}  
+    if (fs.existsSync(dirname)) {
+        return true;
+    } else {
+        if (mkdirsSync(path.dirname(dirname))) {
+            fs.mkdirSync(dirname);
+            return true;
+        }
+    }
+}
 
 function reload() {
 
@@ -59,6 +68,5 @@ function reload() {
 module.exports = {
     getSetting: getSetting,
     init: init,
-    config: config,
     reload: reload
 }
