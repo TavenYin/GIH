@@ -1,12 +1,12 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-const settingMoudle = require("./setting");
+const config = require("./setting");
 
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
 
 function init() {
-  settingMoudle.init();
+  config.init();
   createWindow();
 }
 

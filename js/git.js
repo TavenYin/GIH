@@ -1,10 +1,9 @@
 const { exec } = require('child_process');
-var label = setting.label;
-var origin_name = setting.origin_name;
-var rep_uri = setting.rep_uri;
-var separator = fileSeparator();
-
-function gitCommitAndPush(fileName) {
+function gitCommitAndPush(fileName, setting) {
+    var label = setting.label;
+    var origin_name = setting.origin_name;
+    var rep_uri = setting.rep_uri;
+    var separator = fileSeparator();
 
     fs.open(local_folder + separator + ".git", 'wx', (err, fd) => {
         if (!err) {
@@ -13,6 +12,7 @@ function gitCommitAndPush(fileName) {
         }
 
     });
+    
     // add && commit && push
     gitExec('git add .', local_folder)
     gitExec('git commit -m "'+fileName+'"', local_folder)
@@ -25,7 +25,6 @@ function gitExec(command, path) {
     execSync(command, {cwd: path}, (err, stdout, stderr) => {
         if (err) {
             console.log(err);
-            return;
             throw err
         }
         console.log(command)

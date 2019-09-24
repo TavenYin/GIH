@@ -8,35 +8,36 @@
 
 <body>
     <button onclick="location.href='index.html'">返回</button>
-    <form id="settingForm">
-        <table>
-            <tr>
-                <td>rep_uri:</td>
-                <td><input type="text" name="rep_uri"></td>
-            </tr>
-            <tr>
-                <td>local_folder:</td>
-                <td><input type="text" name="local_folder"></td>
-            </tr>
-            <tr>
-                <td>path:</td>
-                <td><input type="text" name="path"></td>
-            </tr>
-            <tr>
-                <td>origin_name:</td>
-                <td><input type="text" name="origin_name"></td>
-            </tr>
-            <tr>
-                <td>label:</td>
-                <td><input type="text" name="label"></td>
-            </tr>
-        </table>
-        <button id="submitB">submit</button>
-    </form>
+    <table>
+        <tr>
+            <td>rep_uri:</td>
+            <td><input type="text" name="rep_uri" id="rep_uri"></td>
+        </tr>
+        <tr>
+            <td>local_folder:</td>
+            <td><input type="text" name="local_folder" id="local_folder"></td>
+        </tr>
+        <tr>
+            <td>path:</td>
+            <td><input type="text" name="path" id="path"></td>
+        </tr>
+    </table>
+    <button id="submitB">submit</button>
+
+    <script src="./js/utils.js"></script>
+    <script src="./js/setting.js"></script>
     <script>
-        const settingMoudle = require("./js/setting");
-        settingMoudle.setSetting()
-        document.querySelector("#submitB").click
+        // 页面渲染 TODO
+
+        document.querySelector("#submitB").onclick = function () {
+            var setting = {}
+            setting.rep_uri = document.querySelector("#rep_uri").value
+            setting.local_folder = document.querySelector("#local_folder").value
+            setting.path = document.querySelector("#path").value
+            setting.origin_name = 'origin'
+            setting.label = 'master'
+            config(setting)
+        }
 
     </script>
 </body>
