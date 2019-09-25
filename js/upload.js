@@ -14,7 +14,6 @@ document.addEventListener('dragover', (e) => {
 });
 
 const fs = require("fs");
-const nativeImage = require('electron').nativeImage
 const settingMoudle = require("./js/setting");
 
 const setting = settingMoudle.getSetting();
@@ -41,16 +40,3 @@ function cpFile(fromPath) {
     gitCommitAndPush(prefix + suffix);
     alert("OK")
 }
-
-
-
-// Mousetrap.bind('ctrl+v', function() {
-//     console.log('command shift k'); 
-//     const { clipboard, Tray } = require('electron').remote
-//     const image = clipboard.readImage()
-//     const appIcon = new Tray(image)
-//     console.log(appIcon)
-// });
-
-
-

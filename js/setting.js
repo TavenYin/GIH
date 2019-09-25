@@ -12,14 +12,15 @@ function setting(config) {
 
     if (!fs.existsSync(target)) {
         mkdirsSync(target);
-
     }
 
     // 是否存在 .git
-
-    // git clone 
-
-    // git pull
+    var _git = config.local_folder + fileSeparator() + '.git'
+    if (!fs.existsSync(target)) {
+        commandExec('git clone ' + config.rep_uri, config.local_folder);
+    } else {
+        commandExec('git pull', config.local_folder);
+    }
 
 }
 
@@ -35,9 +36,9 @@ function init() {
 
 function settingOnChange(config) {
     var configFile = process.env.HOME + fileSeparator() + 'setting.json'
-    var configJSON;
+    var configJSON = JSON.stringify(config);
     // 更新配置文件
-    fs.writeFile(configFile, configJSON = JSON.stringify(config), 'utf8', function (error) {
+    fs.writeFile(configFile, configJSON, 'utf8', function (error) {
         if (error) {
             console.log(error);
             return false;
