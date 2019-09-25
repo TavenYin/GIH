@@ -14,9 +14,6 @@ document.addEventListener('dragover', (e) => {
 });
 
 const fs = require("fs");
-const settingMoudle = require("./js/setting");
-
-const setting = settingMoudle.getSetting();
 var local_folder = setting.local_folder;
 var path = setting.path;
 
@@ -39,4 +36,5 @@ function cpFile(fromPath) {
     fs.writeFileSync(newFileName, fs.readFileSync(fromPath));
     gitCommitAndPush(prefix + suffix);
     alert("OK")
+    
 }

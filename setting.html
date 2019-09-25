@@ -29,15 +29,19 @@
     <script src="./js/setting.js"></script>
     <script>
         // 页面渲染 TODO
+        var settings = getSetting();
+        document.querySelector("#rep_uri").value = settings.rep_uri
+        document.querySelector("#local_folder").value = settings.local_folder
+        document.querySelector("#path").value = settings.path
 
         document.querySelector("#submitB").onclick = function () {
-            var setting = {}
-            setting.rep_uri = document.querySelector("#rep_uri").value
-            setting.local_folder = document.querySelector("#local_folder").value
-            setting.path = document.querySelector("#path").value
-            setting.origin_name = 'origin'
-            setting.label = 'master'
-            setting(setting)
+            var config = {}
+            config.rep_uri = document.querySelector("#rep_uri").value
+            config.local_folder = document.querySelector("#local_folder").value
+            config.path = document.querySelector("#path").value
+            config.origin_name = 'origin'
+            config.label = 'master'
+            setting(config)
         }
 
     </script>

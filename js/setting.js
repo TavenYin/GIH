@@ -8,19 +8,20 @@ function getSetting() {
 function setting(config) {
     settingOnChange(config);
     // 创建本地目录
-    var target = config.local_folder + fileSeparator() + config.path
+    // var target = config.local_folder + fileSeparator() + config.path
 
-    if (!fs.existsSync(target)) {
-        mkdirsSync(target);
-    }
+    // if (!fs.existsSync(target)) {
+    //     mkdirsSync(target);
+    // }
 
-    // 是否存在 .git
-    var _git = config.local_folder + fileSeparator() + '.git'
-    if (!fs.existsSync(target)) {
-        commandExec('git clone ' + config.rep_uri, config.local_folder);
-    } else {
-        commandExec('git pull', config.local_folder);
-    }
+    // // 是否存在 .git
+    // var _git = config.local_folder + fileSeparator() + '.git'
+    // if (!fs.existsSync(_git)) {
+    //     // git clone xxx.git . 不会创建目录
+    //     commandExec('git clone ' + config.rep_uri + ' .', config.local_folder);
+    // } else {
+    //     commandExec('git pull', config.local_folder);
+    // }
 
 }
 
@@ -35,16 +36,16 @@ function init() {
 }
 
 function settingOnChange(config) {
-    var configFile = process.env.HOME + fileSeparator() + 'setting.json'
     var configJSON = JSON.stringify(config);
-    // 更新配置文件
-    fs.writeFile(configFile, configJSON, 'utf8', function (error) {
-        if (error) {
-            console.log(error);
-            return false;
-        }
-        console.log('写入成功');
-    })
+    // var configFile = process.env.HOME + fileSeparator() + 'setting.json'
+    // // 更新配置文件
+    // fs.writeFile(configFile, configJSON, 'utf8', function (error) {
+    //     if (error) {
+    //         console.log(error);
+    //         return false;
+    //     }
+    //     console.log('写入成功');
+    // })
     // 更新全局变量
     localStorage.setItem("setting", configJSON);
 }

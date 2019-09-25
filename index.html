@@ -16,18 +16,19 @@
         </div>
         <button onclick="location.href='./setting.html'">设置</button>
     </div>
+    <script>
+        // var configFile = process.env.HOME + fileSeparator() + 'setting.json'
+        // if (fs.existsSync(configFile)) {
+        //     var data = fs.readFileSync(configFile);
+        //     localStorage.setItem("setting", data.toString())
+
+        // }
+        var setting = JSON.parse(localStorage.getItem("setting"))
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/mousetrap.min.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/command.js"></script>
     <script src="./js/upload.js"></script>
-    <script>
-        var configFile = process.env.HOME + fileSeparator() + 'setting.json'
-        if (fs.existsSync(configFile)) {
-            var data = fs.readFileSync(configFile);
-            localStorage.setItem("setting", data.toString())
-
-        }
-    </script>
 </body>
 
 </html>
