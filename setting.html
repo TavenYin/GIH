@@ -26,13 +26,14 @@
 
     <script src="./js/utils.js"></script>
     <script src="./js/command.js"></script>
-    <script src="./js/setting.js"></script>
     <script>
         // 页面渲染 TODO
-        var settings = getSetting();
-        document.querySelector("#rep_uri").value = settings.rep_uri
-        document.querySelector("#local_folder").value = settings.local_folder
-        document.querySelector("#path").value = settings.path
+        var settings = JSON.parse(localStorage.getItem("setting"))
+        if (settings != null) {
+            document.querySelector("#rep_uri").value = settings.rep_uri
+            document.querySelector("#local_folder").value = settings.local_folder
+            document.querySelector("#path").value = settings.path
+        }
 
         document.querySelector("#submitB").onclick = function () {
             var config = {}
@@ -41,7 +42,9 @@
             config.path = document.querySelector("#path").value
             config.origin_name = 'origin'
             config.label = 'master'
-            setting(config)
+            localStorage.setItem("setting", JSON.stringify(config));
+            alert('设置成功')
+            location.href = './index.html'
         }
 
     </script>

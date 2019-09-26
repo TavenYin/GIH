@@ -14,14 +14,12 @@ document.addEventListener('dragover', (e) => {
 });
 
 const fs = require("fs");
-var local_folder = setting.local_folder;
-var path = setting.path;
-
+var path = require("path");
 
 document.getElementById('file').onchange = function () {
     var f = document.querySelector('#file');
     if (f.value != "") {
-        cpFile(f.files[0].path);
+        upload(f.files[0].path);
         f.value = null;
     } else {
         alert('未选择图片哦')
@@ -29,12 +27,25 @@ document.getElementById('file').onchange = function () {
     }
 }
 
-function cpFile(fromPath) {
+function upload(fromPath) {
     var prefix = uuid();
     var suffix = fromPath.substring(fromPath.indexOf("."));
-    var newFileName = local_folder + path + fileSeparator() + prefix + suffix;
+    var targetFolder = setting.local_folder + fileSeparator() + setting.path;
+    var newFileName = targetFolder + fileSeparator() + prefix + suffix;
+    mkdirsSyncIfNecessary(targetFolder)
     fs.writeFileSync(newFileName, fs.readFileSync(fromPath));
     gitCommitAndPush(prefix + suffix);
     alert("OK")
-    
+}
+
+function mkdirsSyncIfNecessary(dirname) {
+    //console.log(dirname);  
+    if (fs.existsSync(dirname)) {
+        return true;
+    } else {
+        if (mkdirsSyncIfNecessary(path.dirname(dirname))) {
+            fs.mkdirSync(dirname);
+            return true;
+        }
+    }
 }
