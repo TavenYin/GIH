@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>GIH - Setting</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sweet-alert.min.css">
+    <link rel="stylesheet" href="css/loaders.min.css">
+    <link rel="stylesheet" href="css/popup.css">
 </head>
 
 <body>
-    <button onclick="location.href='index.html'">返回</button>
-    <table>
+    <button onclick="location.href='popup.html'">返回</button>
+    <!-- <table>
         <tr>
             <td>rep_uri:</td>
             <td><input type="text" name="rep_uri" id="rep_uri"></td>
@@ -21,8 +25,33 @@
             <td>path:</td>
             <td><input type="text" name="path" id="path"></td>
         </tr>
-    </table>
-    <button id="submitB">submit</button>
+    </table> -->
+
+    <div class="col-xs-8 single-model">
+            <div class="link-item">
+                <strong>仓库URL</small></strong>
+                <div class="input-append">
+                    <input class="res col-xs-10" id="res_img" value="" spelcheck="false" />
+                    <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                </div>
+            </div>
+            <div class="link-item">
+                <strong>本地仓库位置</strong>
+                <div class="input-append">
+                    <input class="res col-xs-10" id="res_html" value="" spellcheck="false" readonly="true" />
+                    <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                </div>
+            </div>
+            <div class="link-item">
+                <strong>上传路径</strong>
+                <div class="input-append">
+                    <input class="res col-xs-10" id="res_ubb" value="" spellcheck="false" readonly="true" />
+                    <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                </div>
+            </div>
+        </div>
+
+    <button id="submitB"  type="button" class="btn btn-default btn-copy disabled">提交</button>
 
     <script src="./js/utils.js"></script>
     <script src="./js/command.js"></script>
