@@ -1,7 +1,5 @@
 const { execSync } = require('child_process');
 function gitCommitAndPush(fileName) {
-    
-
     // add && commit && push
     commandExec('git add .', setting.local_folder)
     commandExec('git commit -m "'+fileName+'"', setting.local_folder)

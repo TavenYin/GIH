@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>微博图床</title>
+    <title>GIH - Git Image Hosting</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sweet-alert.min.css">
     <link rel="stylesheet" href="css/loaders.min.css">
@@ -26,7 +26,8 @@
             <input id="input" type="file" class="uploadTrigger" style="display:none;" accept="image/jpeg, image/png"
                 multiple>
             <div class="col-xs-4 pull-left">
-                <p style="padding-top:6px;margin-left:10px;">单击或者拖拽图片到此 | <a id="optionPage" href="setting.html">设置</a></p>
+                <p style="padding-top:6px;margin-left:10px;">单击或者拖拽图片到此 | <a id="optionPage" href="setting.html">设置</a>
+                </p>
             </div>
             <div class="col-xs-8">
                 <div class="btn-group" role="group">
@@ -95,8 +96,8 @@
         </div>
         <div class="navbar-fixed-bottom">
             <div class="https col-xs-8">
-                <span id="statusBadge" class="badge"> </span>
-                <input id="https" type="checkbox"> <label id="https-label" for="https">HTTPS</label>
+                <!-- <span id="statusBadge" class="badge"> </span>
+                <input id="https" type="checkbox"> <label id="https-label" for="https">HTTPS</label> -->
             </div>
             <div class="col-xs-4">
                 <button class="pull-right btn btn-default btn-batch" type="button">批量模式</button>
@@ -110,7 +111,7 @@
         delete window.module;
     </script>
     <script src="./js/utils.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/sweet-alert.min.js"></script>
     <script src="js/command.js"></script>
     <script>
@@ -120,6 +121,9 @@
         if (setting == null) {
             location.href = './setting.html'
         }
+
+        // git pull
+        commandExec('git pull', setting.local_folder)
 
         $('body').on('mouseenter', '.clicker', function () {
             var img_url = $(this).parent().nextAll().find('#res_img').data('url');
@@ -135,7 +139,14 @@
         $('#input').change(function () {
             var f = document.querySelector('#input');
             if (f.value != "") {
-                upload(f.files[0].path);
+                var result = upload(f.files[0].path);
+
+                // 异步执行git操作和渲染
+                setTimeout(function () {
+                    gitCommitAndPush()
+                    render(result)
+                }, 0)
+
                 f.value = null;
             } else {
                 alert('未选择图片哦')
@@ -143,28 +154,25 @@
             }
         })
 
-        function upload(fromPath) {
+        function upload(srcPath) {
             $(".loader-wrap").show();
             var prefix = uuid();
-            var suffix = fromPath.substring(fromPath.indexOf("."));
+            var suffix = srcPath.substring(srcPath.indexOf("."));
             var targetFolder = setting.local_folder + fileSeparator() + setting.path;
             var fileName = prefix + suffix;
             var targetFile = targetFolder + fileSeparator() + fileName;
             mkdirsSyncIfNecessary(targetFolder)
-            fs.writeFileSync(targetFile, fs.readFileSync(fromPath));
-            gitCommitAndPush();
-            // alert("OK")
+            fs.writeFileSync(targetFile, fs.readFileSync(srcPath));
+            return setting.rep_uri + "/raw/" + setting.label + "/" + setting.path + "/" + fileName;
+        }
 
-            // var label = setting.label;
-            // var origin_name = setting.origin_name;
-            // var rep_uri = setting.rep_uri;
-            // var local_folder = setting.local_folder;
-            var result = setting.rep_uri + "/raw/" + setting.label + "/" + setting.path + "/" + fileName;
-
+        function render(result) {
+            $("#res_img").val(result)
             $('.single-model img').prop('src', '1x1.png');
             $('.single-model img').css('background-image', 'url(' + result + ')');
             $('.single-model img').css('background-position', 'center');
             $('.file-info').css('display', 'inline-block');
+            $(".btn-copy").removeClass("disabled");
             $(".loader-wrap").hide();
         }
 
@@ -180,19 +188,40 @@
             }
         }
 
+        // 拖拽
         document.querySelector("#uploadPlaceHolder").addEventListener('drop', (e) => {
             e.preventDefault();
             e.stopPropagation();
-
+            var result = upload(e.dataTransfer.files[0].path);
+            setTimeout(function () {
+                gitCommitAndPush()
+                render(result)
+            }, 0)
             // for (const f of e.dataTransfer.files) {
-            //     console.log('File(s) you dragged here: ', f.path)
-            //     cpFile(f.path)
+            //     upload(f.path)
             // }
-            alert('np')
         });
         document.querySelector("#uploadPlaceHolder").addEventListener('dragover', (e) => {
             e.preventDefault();
             e.stopPropagation();
+        });
+
+        $(".btn-copy,.btn-batchcopy").hover(
+            function () {
+                $(this).removeAttr('data-tooltip');
+            },
+            function () {
+                $(this).blur();
+            }
+        );
+        //单图模式下的"复制"按钮,添加点击事件
+        $(".btn-copy").on("click", function () {
+            event.preventDefault();
+            $(this).prev().select();
+            var dataToCpy = $(this).prev().val();
+            document.execCommand('copy');
+            $(this).attr("data-tooltip", "复制成功"); //data-tooltip="复制成功"
+            document.getSelection().removeAllRanges();
         });
     </script>
 </body>
