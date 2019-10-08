@@ -8,50 +8,38 @@
     <link rel="stylesheet" href="css/sweet-alert.min.css">
     <link rel="stylesheet" href="css/loaders.min.css">
     <link rel="stylesheet" href="css/popup.css">
+    <style>
+        .link-item {
+            margin-bottom: 0px;
+        }
+    </style>
 </head>
 
 <body>
     <button onclick="location.href='popup.html'">返回</button>
-    <!-- <table>
-        <tr>
-            <td>rep_uri:</td>
-            <td><input type="text" name="rep_uri" id="rep_uri"></td>
-        </tr>
-        <tr>
-            <td>local_folder:</td>
-            <td><input type="text" name="local_folder" id="local_folder"></td>
-        </tr>
-        <tr>
-            <td>path:</td>
-            <td><input type="text" name="path" id="path"></td>
-        </tr>
-    </table> -->
-
     <div class="col-xs-8 single-model">
-            <div class="link-item">
-                <strong>仓库URL</small></strong>
-                <div class="input-append">
-                    <input class="res col-xs-10" id="res_img" value="" spelcheck="false" />
-                    <button type="button" class="btn btn-default btn-copy disabled">复制</button>
-                </div>
-            </div>
-            <div class="link-item">
-                <strong>本地仓库位置</strong>
-                <div class="input-append">
-                    <input class="res col-xs-10" id="res_html" value="" spellcheck="false" readonly="true" />
-                    <button type="button" class="btn btn-default btn-copy disabled">复制</button>
-                </div>
-            </div>
-            <div class="link-item">
-                <strong>上传路径</strong>
-                <div class="input-append">
-                    <input class="res col-xs-10" id="res_ubb" value="" spellcheck="false" readonly="true" />
-                    <button type="button" class="btn btn-default btn-copy disabled">复制</button>
-                </div>
+        <div class="link-item">
+            <strong>仓库URL</small></strong>
+            <div class="input-append">
+                <input class="res col-xs-10" id="rep_uri" value="" spelcheck="false" />
             </div>
         </div>
-
-    <button id="submitB"  type="button" class="btn btn-default btn-copy disabled">提交</button>
+        <div class="link-item" style="float: left;width: 100%;">
+            <strong>本地仓库位置</strong>
+            <div class="input-append">
+                <input class="res col-xs-10" id="local_folder" value="" spellcheck="false"/>
+            </div>
+        </div>
+        <div class="link-item" style="float: left;width: 100%;">
+            <strong>上传目录</strong>
+            <div class="input-append">
+                <input class="res col-xs-10" id="path" value="" spellcheck="false"/>
+            </div>
+        </div>
+        <div class="link-item" style="float: left;width: 100%;">
+            <button id="submitB" type="button" class="btn btn-default btn-copy">保存</button>
+        </div>
+    </div>
 
     <script src="./js/utils.js"></script>
     <script src="./js/command.js"></script>
@@ -73,7 +61,7 @@
             config.label = 'master'
             localStorage.setItem("setting", JSON.stringify(config));
             alert('设置成功')
-            location.href = './index.html'
+            location.href = './popup.html'
         }
 
     </script>

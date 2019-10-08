@@ -29,12 +29,12 @@
                 <p style="padding-top:6px;margin-left:10px;">单击或者拖拽图片到此 | <a id="optionPage" href="setting.html">设置</a>
                 </p>
             </div>
-            <div class="col-xs-8">
-                <div class="btn-group" role="group">
+            <div class="col-xs-8" style="height: 45px;">
+                <!-- <div class="btn-group" role="group">
                     <button type="button" class="btn btn-default btn-size" value="thumbnail">缩略图</button>
                     <button type="button" class="btn btn-default btn-size" value="mw690">中等尺寸</button>
                     <button type="button" class="btn btn-default btn-size active" value="large">原图</button>
-                </div>
+                </div> -->
                 <div class="btn-group" style="display:none" role="group">
                     <button type="button" class="btn btn-default btn-format  active" value="1">A</button>
                     <button type="button" class="btn btn-default btn-format" value="2">H</button>
@@ -98,6 +98,7 @@
             <div class="https col-xs-8">
                 <!-- <span id="statusBadge" class="badge"> </span>
                 <input id="https" type="checkbox"> <label id="https-label" for="https">HTTPS</label> -->
+                <button class="btn btn-default  btn-batch" type="button" id="update">更新仓库</button>
             </div>
             <div class="col-xs-4">
                 <button class="pull-right btn btn-default btn-batch" type="button">批量模式</button>
@@ -122,8 +123,11 @@
             location.href = './setting.html'
         }
 
-        // git pull
-        commandExec('git pull', setting.local_folder)
+        $("#update").on("click", function () {
+            // git pull
+            commandExec('git pull', setting.local_folder)
+            alert('更新成功');
+        })
 
         $('body').on('mouseenter', '.clicker', function () {
             var img_url = $(this).parent().nextAll().find('#res_img').data('url');
@@ -143,8 +147,8 @@
 
                 // 异步执行git操作和渲染
                 setTimeout(function () {
-                    gitCommitAndPush()
-                    render(result)
+                    gitCommitAndPush(result.fileName)
+                    render(result.url)
                 }, 0)
 
                 f.value = null;
@@ -163,13 +167,20 @@
             var targetFile = targetFolder + fileSeparator() + fileName;
             mkdirsSyncIfNecessary(targetFolder)
             fs.writeFileSync(targetFile, fs.readFileSync(srcPath));
-            return setting.rep_uri + "/raw/" + setting.label + "/" + setting.path + "/" + fileName;
+            return {
+                "url":setting.rep_uri + "/raw/" + setting.label + "/" + setting.path + "/" + fileName,
+                "fileName": fileName
+            };
         }
 
         function render(result) {
             $("#res_img").val(result)
+            $('#res_html').val('<img src="'+result+'"/>');
+            $('#res_ubb').val('[IMG]'+result+'[/IMG]');
+            $('#res_md').val('![]('+result+')');
             $('.single-model img').prop('src', '1x1.png');
             $('.single-model img').css('background-image', 'url(' + result + ')');
+            $('.single-model img').css('border', 'none');
             $('.single-model img').css('background-position', 'center');
             $('.file-info').css('display', 'inline-block');
             $(".btn-copy").removeClass("disabled");
