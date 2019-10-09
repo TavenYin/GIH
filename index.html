@@ -2,29 +2,120 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>GIH - Git Image Hosting</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sweet-alert.min.css">
+    <link rel="stylesheet" href="css/loaders.min.css">
+    <link rel="stylesheet" href="css/popup.css">
 </head>
 
 <body>
-    <div>
-        <input type="file" id="file" name="file">
-        <br>
-        markdown:<input type="text" id="markdown">
-        <div id="holder">
-            支持拖拽哦
+    <div class="loading-bar"></div>
+    <div class="loader-wrap text-center">
+        <div class="loader-inner line-scale">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        <button onclick="location.href='./setting.html'">设置</button>
+    </div>
+    <div class="container main">
+        <div class="row">
+            <input id="input" type="file" class="uploadTrigger" style="display:none;" accept="image/jpeg, image/png"
+                multiple>
+            <div class="col-xs-4 pull-left">
+                <p style="padding-top:6px;margin-left:10px;">单击或者拖拽图片到此 | <a id="optionPage" href="setting.html">设置</a>
+                </p>
+            </div>
+            <div class="col-xs-8" style="height: 45px;">
+                <!-- <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-size" value="thumbnail">缩略图</button>
+                    <button type="button" class="btn btn-default btn-size" value="mw690">中等尺寸</button>
+                    <button type="button" class="btn btn-default btn-size active" value="large">原图</button>
+                </div> -->
+                <div class="btn-group" style="display:none" role="group">
+                    <button type="button" class="btn btn-default btn-format  active" value="1">A</button>
+                    <button type="button" class="btn btn-default btn-format" value="2">H</button>
+                    <button type="button" class="btn btn-default btn-format" value="3">U</button>
+                    <button type="button" class="btn btn-default btn-format" value="4">M</button>
+                </div>
+                <div class="pull-right" style="display:none">
+                    <button type="button" class="btn btn-default btn-batchcopy" disabled>一键复制所有地址</button>
+                </div>
+            </div>
+            <div class="col-xs-4 single-model">
+                <figure>
+                    <img src="img/placeholder.png" id="uploadPlaceHolder" class="dragger clicker">
+                </figure>
+                <span class="file-info"> <span id="fileName"></span> / <span id="fileSize"></span> </span>
+                <br>
+                <div id="single-progress" class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                        <span class="sr-only">20% Complete</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-8 single-model">
+                <div class="link-item">
+                    <strong>图片链接<small class="muted">(试一试粘贴图片到这里↓)</small></strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_img" value="" spelcheck="false" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+                <div class="link-item">
+                    <strong>HTML</strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_html" value="" spellcheck="false" readonly="true" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+                <div class="link-item">
+                    <strong>UBB</strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_ubb" value="" spellcheck="false" readonly="true" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+                <div class="link-item">
+                    <strong>Markdown</strong>
+                    <div class="input-append">
+                        <input class="res col-xs-10" id="res_md" value="" spellcheck="false" readonly="true" />
+                        <button type="button" class="btn btn-default btn-copy disabled">复制</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 batch-model">
+                <div>
+                    <img src="img/placeholder2.png" class="dragger clicker">
+                </div>
+            </div>
+        </div>
+        <div class="navbar-fixed-bottom">
+            <div class="https col-xs-8">
+                <!-- <span id="statusBadge" class="badge"> </span>
+                <input id="https" type="checkbox"> <label id="https-label" for="https">HTTPS</label> -->
+                <button class="btn btn-default  btn-batch" type="button" id="update">更新仓库</button>
+            </div>
+            <div class="col-xs-4">
+                <button class="pull-right btn btn-default btn-batch" type="button">批量模式</button>
+            </div>
+        </div>
     </div>
     <script>
-        var setting = JSON.parse(localStorage.getItem("setting"))
-        if (setting == null) {
-            location.href='./setting.html'
-        }
+        window.nodeRequire = require;
+        // delete window.require;
+        delete window.exports;
+        delete window.module;
     </script>
     <script src="./js/utils.js"></script>
-    <script src="./js/command.js"></script>
-    <script src="./js/upload.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sweet-alert.min.js"></script>
+    <script src="js/command.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>

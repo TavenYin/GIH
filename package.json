@@ -4,13 +4,15 @@
   "description": "Git Image Hosting",
   "main": "./js/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "packager": "electron-packager ./ GIH --win32 --out ./outApp --app-version 1.0.0 --overwrite"
   },
   "author": "yintianwen",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
     "electron": "^6.0.9",
+    "electron-packager": "^14.0.6",
     "webpack": "^1.14.0"
   }
 }
