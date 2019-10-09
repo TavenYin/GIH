@@ -1,3 +1,18 @@
+const { execSync } = require('child_process');
+function gitCommitAndPush(fileName) {
+    // add && commit && push
+    commandExec('git add .', setting.local_folder)
+    commandExec('git commit -m "' + fileName + '"', setting.local_folder)
+    var beginTime = +new Date();
+    commandExec('git push -u ' + setting.origin_name + ' ' + setting.label, setting.local_folder)
+    var endTime = +new Date();
+    console.log("git push用时" + (endTime - beginTime) + "ms");
+}
+
+function commandExec(command, path) {
+    execSync(command, { cwd: path })
+}
+
 const fs = require("fs");
 var path = require("path");
 var setting = JSON.parse(localStorage.getItem("setting"))
@@ -7,7 +22,9 @@ if (setting == null) {
 
 $("#update").on("click", function () {
     // git pull
+    $(".loader-wrap").show();
     commandExec('git pull', setting.local_folder)
+    $(".loader-wrap").hide();
     alert('更新成功');
 })
 
@@ -99,6 +116,23 @@ document.querySelector("#uploadPlaceHolder").addEventListener('dragover', (e) =>
     e.stopPropagation();
 });
 
+//HTML5 paste http://www.zhihu.com/question/20893119
+// $("#res_img").on("paste", function(e) {
+//     var oe = e.originalEvent;
+//     var clipboardData, items, item;
+//     if (oe && (clipboardData = oe.clipboardData) && (items = clipboardData.items)) {
+//         var b = false;
+//         var img_file = [];
+//         for (var i = 0, l = items.length; i < l; i++) {
+//             if ((item = items[i]) && item.kind == 'file' && item.type.match(/^image\//i)) {
+//                 b = true;
+//                 img_file.push(item.getAsFile());
+//             }
+//         }
+//         if (b) return false;
+//     }
+// });
+
 $(".btn-copy,.btn-batchcopy").hover(
     function () {
         $(this).removeAttr('data-tooltip');
@@ -142,18 +176,3 @@ function uuid() {
     return uuid.join("");
 }
 
-const { execSync } = require('child_process');
-function gitCommitAndPush(fileName) {
-    // add && commit && push
-    commandExec('git add .', setting.local_folder)
-    commandExec('git commit -m "' + fileName + '"', setting.local_folder)
-    var beginTime = +new Date();
-    commandExec('git push -u ' + setting.origin_name + ' ' + setting.label, setting.local_folder)
-    var endTime = +new Date();
-    console.log("git push用时" + (endTime - beginTime) + "ms");
-    // https://gitee.com/yintianwen7/img-rep/blob/master/gihtest/3060ADBC-7B2F-487E-986C-6CB55CCE2C4A.jpg
-}
-
-function commandExec(command, path) {
-    execSync(command, { cwd: path })
-}
