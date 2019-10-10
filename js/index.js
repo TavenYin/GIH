@@ -104,8 +104,8 @@ document.querySelector("#uploadPlaceHolder").addEventListener('drop', (e) => {
     e.stopPropagation();
     var result = upload(e.dataTransfer.files[0].path);
     setTimeout(function () {
-        gitCommitAndPush()
-        render(result)
+        gitCommitAndPush(result.fileName)
+        render(result.url)
     }, 0)
     // for (const f of e.dataTransfer.files) {
     //     upload(f.path)
@@ -117,21 +117,49 @@ document.querySelector("#uploadPlaceHolder").addEventListener('dragover', (e) =>
 });
 
 //HTML5 paste http://www.zhihu.com/question/20893119
-// $("#res_img").on("paste", function(e) {
-//     var oe = e.originalEvent;
-//     var clipboardData, items, item;
-//     if (oe && (clipboardData = oe.clipboardData) && (items = clipboardData.items)) {
-//         var b = false;
-//         var img_file = [];
-//         for (var i = 0, l = items.length; i < l; i++) {
-//             if ((item = items[i]) && item.kind == 'file' && item.type.match(/^image\//i)) {
-//                 b = true;
-//                 img_file.push(item.getAsFile());
-//             }
-//         }
-//         if (b) return false;
-//     }
-// });
+$("#res_img").on("paste", function (e) {
+    var oe = e.originalEvent;
+    var clipboardData, items, item;
+    if (oe && (clipboardData = oe.clipboardData) && (items = clipboardData.items)) {
+        var b = false;
+        var img_file = [];
+        for (var i = 0, l = items.length; i < l; i++) {
+            if ((item = items[i]) && item.kind == 'file' && item.type.match(/^image\//i)) {
+                b = true;
+                img_file.push(item.getAsFile());
+            }
+        }
+
+        if (img_file.length != 0) {
+            $(".loader-wrap").show();
+            pasteUpload(img_file[0]);
+
+        }
+
+        function pasteUpload(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                var orginName = file.name;
+                var base64 = e.target.result;
+                var base64Data = base64.replace(/^data:image\/\w+;base64,/, "");
+                var dataBuffer = new Buffer(base64Data, 'base64');
+
+                var prefix = uuid();
+                var suffix = orginName.substring(orginName.indexOf("."));
+                var targetFolder = setting.local_folder + fileSeparator() + setting.path;
+                var fileName = prefix + suffix;
+                var targetFile = targetFolder + fileSeparator() + fileName;
+                mkdirsSyncIfNecessary(targetFolder)
+                fs.writeFileSync(targetFile, dataBuffer);
+                var url = setting.rep_uri + "/raw/" + setting.label + "/" + setting.path + "/" + fileName
+                gitCommitAndPush(fileName)
+                render(url)
+            };
+        }
+
+    }
+});
 
 $(".btn-copy,.btn-batchcopy").hover(
     function () {
