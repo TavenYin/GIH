@@ -26,7 +26,7 @@ github上发布了windows的压缩包，解压即用。
 强烈推荐使用ssh，因为ssh比https要快一些，而且也免去了输入账号密码的环节
 
 3. 进入设置页面
-![](https://gitee.com/yintianwen7/img-rep2/raw/master/new/721F280D-9C74-4E54-B4CF-E3FA4D7469B5.png)
+![](https://gitee.com/yintianwen7/img-rep2/raw/master/testttt/49E3D35F-96CA-4B21-A544-AB1E200A0E08.png)
 
 4. 然后就可以使用图床功能了
 ![](https://gitee.com/yintianwen7/img-rep2/raw/master/new/F9008610-95ED-4F70-B08B-4CDD08F6B974.png)
