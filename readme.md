@@ -18,6 +18,10 @@ GitHub 和 Gitee 我都试过，在你的仓库里上传一张图片。例如 ht
 [releases](https://github.com/TavenYin/GIH/releases)上发布了windows的压缩包，解压即用。
 
 其他平台的用户，可以下载源码编译
+```
+npm i
+npm start
+```
 
 #### 使用
 1. 在你喜欢的Git平台建立一个仓库
