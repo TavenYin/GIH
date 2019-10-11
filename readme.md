@@ -15,7 +15,7 @@ GitHub 和 Gitee 我都试过，在你的仓库里上传一张图片。例如 ht
 
 
 #### 安装
-github上发布了windows的压缩包，解压即用。
+[releases](https://github.com/TavenYin/GIH/releases)上发布了windows的压缩包，解压即用。
 
 其他平台的用户，可以下载源码编译
 
