@@ -29,7 +29,7 @@ GitHub 和 Gitee 我都试过，在你的仓库里上传一张图片。例如 ht
 ![](https://gitee.com/yintianwen7/img-rep2/raw/master/testttt/49E3D35F-96CA-4B21-A544-AB1E200A0E08.png)
 
 4. 然后就可以使用图床功能了
-![](https://gitee.com/yintianwen7/img-rep2/raw/master/new/F9008610-95ED-4F70-B08B-4CDD08F6B974.png)
+![](https://gitee.com/yintianwen7/img-rep2/raw/master/testttt/73CF5346-3CDE-4073-AFD1-D2C649E6861F.png)
 
 #### 最后
 如果觉得不错，请点个star。
