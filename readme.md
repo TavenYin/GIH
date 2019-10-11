@@ -29,3 +29,6 @@ github上发布了windows的压缩包，解压即用。
 
 4. 然后就可以使用图床功能了
 ![](https://gitee.com/yintianwen7/img-rep2/raw/master/new/F9008610-95ED-4F70-B08B-4CDD08F6B974.png)
+
+#### 最后
+如果觉得不错，请点个star。有什么建议和bug，不用客气直接issue
